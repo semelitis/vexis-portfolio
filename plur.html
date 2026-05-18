@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plur App — UX Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+::-webkit-scrollbar{display:none}
+html,body{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif}
+:root{
+  --red:#E5402A;--red-dim:rgba(229,64,42,.18);--red-glow:rgba(229,64,42,.35);
+  --bg:#0D0D0F;--s1:#141416;--s2:#1C1C1F;--s3:#242427;--s4:#2C2C30;
+  --bd:#2A2A2E;--bd2:#363639;--t1:#F0EFE9;--t2:#9E9C97;--t3:#555451;
+  --ff-d:'Syne',sans-serif;--ff-b:'DM Sans',sans-serif;
+  --pw:320px;--ph:640px;
+}
+body{display:flex;background:var(--bg);color:var(--t1)}
+/* PANEL */
+.panel{width:296px;min-width:296px;height:100vh;background:var(--s1);border-right:1px solid var(--bd);display:flex;flex-direction:column;padding:26px 20px;overflow-y:auto}
+.p-brand{display:flex;align-items:center;gap:8px;margin-bottom:22px}
+.p-dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red-glow)}
+.p-bl{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.p-title{font-family:var(--ff-d);font-size:30px;font-weight:800;line-height:1.05;margin-bottom:4px}
+.p-title span{color:var(--red)}
+.p-desc{font-size:12px;color:var(--t2);line-height:1.65;margin-bottom:14px}
+.p-div{height:1px;background:var(--bd);margin:12px 0}
+.pm{margin-bottom:10px}
+.pm-l{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:2px}
+.pm-v{font-size:12px;color:var(--t2)}
+.ps{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--t3);margin:14px 0 7px}
+.pp{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:10px;margin-bottom:6px}
+.pp span{font-size:14px;display:block;margin-bottom:4px}
+.pp p{font-size:11px;color:var(--t2);line-height:1.6}
+.ppills{display:flex;flex-wrap:wrap;gap:5px}
+.ppill{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;background:var(--s2);border:1px solid var(--bd);border-radius:13px;font-size:11px;color:var(--t2)}
+.ppill i{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0}
+.p-nav{display:flex;flex-direction:column;gap:3px}
+.pnb{display:flex;align-items:center;gap:9px;padding:7px 9px;background:none;border:1px solid transparent;border-radius:8px;color:var(--t3);font-size:11px;font-family:var(--ff-b);cursor:pointer;text-align:left;transition:all .18s}
+.pnb:hover{background:var(--s2);color:var(--t2)}
+.pnb.on{background:var(--s2);border-color:var(--bd2);color:var(--t1)}
+.pnb .n{width:18px;height:18px;border-radius:5px;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--t3);flex-shrink:0;transition:all .18s}
+.pnb.on .n{background:var(--red);color:#fff}
+.ptags{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.ptag{padding:3px 8px;background:var(--s2);border:1px solid var(--bd);border-radius:5px;font-size:10px;color:var(--t3)}
+.pft{margin-top:auto;padding-top:14px;border-top:1px solid var(--bd)}
+.pft p{font-size:11px;color:var(--t3);line-height:1.7}
+.pft strong{color:var(--t2)}
+/* STAGE */
+.stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;gap:16px}
+.stage::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:36px 36px;opacity:.22;pointer-events:none}
+.stage::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,transparent 30%,var(--bg) 100%);pointer-events:none}
+.spills{position:relative;z-index:2;display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+.spb{padding:5px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:16px;font-size:10px;font-weight:600;color:var(--t3);font-family:var(--ff-b);cursor:pointer;transition:all .18s;white-space:nowrap}
+.spb:hover{border-color:var(--bd2);color:var(--t2)}
+.spb.on{background:var(--red);border-color:var(--red);color:#fff}
+/* PHONE */
+.phone{width:var(--pw);height:var(--ph);background:#0B0B0D;border-radius:44px;overflow:hidden;position:relative;z-index:1;display:flex;flex-direction:column;box-shadow:0 0 0 1px #28282C,0 0 0 2.5px #181819,0 32px 64px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.04)}
+.phone::after{content:'';position:absolute;right:-3px;top:110px;width:3px;height:52px;background:#1E1E20;border-radius:0 3px 3px 0}
+.phone::before{content:'';position:absolute;left:-3px;top:90px;width:3px;height:26px;background:#1E1E20;border-radius:3px 0 0 3px;box-shadow:0 36px 0 #1E1E20}
+/* STATUS BAR */
+.sb{height:40px;background:#0B0B0D;display:flex;align-items:flex-end;justify-content:space-between;padding:0 20px 7px;font-size:12px;font-weight:600;color:var(--t1);flex-shrink:0;position:relative;z-index:10}
+.sb-n{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:26px;background:#0B0B0D;border-radius:0 0 16px 16px;z-index:2}
+.sb-p{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:72px;height:14px;background:#000;border-radius:8px;z-index:3}
+.sb-r{display:flex;align-items:center;gap:4px}
+/* TOAST */
+.tw{position:absolute;top:46px;left:50%;transform:translateX(-50%);z-index:200;pointer-events:none;white-space:nowrap}
+.toast{background:rgba(28,28,30,.96);backdrop-filter:blur(14px);border:1px solid var(--bd2);border-radius:18px;padding:7px 16px;font-size:11px;font-weight:500;color:var(--t1);opacity:0;transform:translateY(-6px);transition:all .22s ease}
+.toast.show{opacity:1;transform:translateY(0)}
+/* SIDEBAR */
+.sidebar{position:absolute;inset:0;z-index:100;display:flex;pointer-events:none;opacity:0;transition:opacity .22s}
+.sidebar.open{opacity:1;pointer-events:all}
+.sbp{width:218px;height:100%;background:#0B0B0D;border-right:1px solid var(--bd);padding:46px 0 20px;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.sidebar.open .sbp{transform:translateX(0)}
+.sb-sc{flex:1;background:rgba(0,0,0,.55);cursor:pointer}
+.sbpr{padding:0 17px 15px;border-bottom:1px solid var(--bd);margin-bottom:4px}
+.sbav{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--red),#7B2FBE);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:8px}
+.sbnm{font-family:var(--ff-d);font-size:14px;font-weight:700;color:var(--t1)}
+.sbrl{font-size:11px;color:var(--t3)}
+.sbi{display:flex;align-items:center;gap:10px;padding:10px 17px;background:none;border:none;color:var(--t2);font-size:12px;font-family:var(--ff-b);cursor:pointer;transition:background .15s;text-align:left;width:100%}
+.sbi:hover{background:var(--s2)}
+.sbb{margin-left:auto;background:var(--red);color:#fff;border-radius:8px;padding:1px 6px;font-size:10px;font-weight:700}
+/* SCREENS */
+.screen{display:none;flex:1;flex-direction:column;overflow:hidden;position:relative}
+.screen.active{display:flex}
+/* BOTTOM NAV */
+.bnav{position:absolute;bottom:0;left:0;right:0;background:#0B0B0D;border-top:1px solid var(--bd);display:flex;padding:7px 0 13px;z-index:10}
+.bni{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--ff-b)}
+.bni-ic{font-size:16px}
+.bni-lb{font-size:8px;font-weight:600;color:var(--t3)}
+.bni.on .bni-lb{color:var(--red)}
+/* HOME */
+.hh{padding:8px 15px 9px;background:#0B0B0D;flex-shrink:0}
+.htop{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.hmen{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:4px;padding:3px}
+.hmen span{display:block;height:1.5px;background:var(--t1);border-radius:2px}
+.hmen span:nth-child(1){width:18px}
+.hmen span:nth-child(2){width:12px}
+.hmen span:nth-child(3){width:18px}
+.hlog{font-family:var(--ff-d);font-size:18px;font-weight:800;color:var(--red);letter-spacing:-.5px}
+.hav{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--red),#7B2FBE);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer}
+.htit{font-family:var(--ff-d);font-size:18px;font-weight:800;line-height:1.2;margin-bottom:2px}
+.htit span{color:var(--red)}
+.hloc{font-size:10px;color:var(--t3);margin-bottom:9px}
+.hsrch{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:7px 10px}
+.hsrch span{font-size:12px}
+.hsrch p{font-size:11px;color:var(--t3)}
+.tabs{display:flex;gap:3px;padding:7px 15px;background:#0B0B0D;flex-shrink:0}
+.tab{flex:1;padding:6px 0;background:var(--s2);color:var(--t3);border:none;border-radius:8px;font-size:11px;font-weight:600;font-family:var(--ff-b);cursor:pointer;transition:all .18s}
+.tab.on{background:var(--red);color:#fff}
+.chips{display:flex;gap:5px;padding:0 15px 7px;overflow-x:auto;background:#0B0B0D;flex-shrink:0}
+.chip{padding:4px 10px;background:var(--s2);color:var(--t3);border:1px solid var(--bd);border-radius:14px;font-size:10px;font-weight:600;font-family:var(--ff-b);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .18s}
+.chip.on{background:var(--red);color:#fff;border-color:var(--red)}
+.clist{flex:1;overflow-y:auto;padding:0 15px 60px}
+.ccard{background:var(--s1);border:1px solid var(--bd);border-radius:13px;margin-bottom:7px;overflow:hidden;cursor:pointer;transition:transform .16s,border-color .16s;animation:fU .3s ease both}
+.ccard:hover{transform:translateY(-2px);border-color:var(--bd2)}
+@keyframes fU{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.cimg{height:80px;display:flex;align-items:center;justify-content:center;font-size:36px;position:relative}
+.cbg{position:absolute;top:7px;right:7px;padding:2px 6px;border-radius:9px;font-size:9px;font-weight:700;color:#fff}
+.cbg.ok{background:#166534}.cbg.low{background:var(--red)}
+.cds{position:absolute;bottom:7px;left:7px;background:rgba(0,0,0,.65);color:#fff;padding:2px 7px;border-radius:8px;font-size:9px;font-weight:600}
+.cbdy{padding:8px 11px 10px}
+.crow{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px}
+.cnm{color:var(--t1);font-weight:700;font-size:13px}
+.car{color:var(--t3);font-size:10px;margin-top:1px}
+.cpr{font-weight:800;font-size:13px;text-align:right}
+.cpl{color:var(--t3);font-size:9px;text-align:right}
+.cmt{display:flex;align-items:center;gap:4px;margin-bottom:5px;font-size:10px}
+.cst{color:#F39C12}.crv{color:var(--t1);font-weight:700}.crc{color:var(--t3)}
+.cno{color:var(--t3);margin-left:auto;font-size:9px}
+.ctgs{display:flex;gap:3px;flex-wrap:wrap}
+.ctg{background:var(--s3);color:var(--t3);padding:2px 6px;border-radius:5px;font-size:9px;font-weight:500}
+/* MAP */
+.mapw{position:relative;flex:1;overflow:hidden}
+.mapc{width:100%;height:100%;background:#1a2332;position:relative;overflow:hidden}
+.mapc::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:28px 28px}
+.mapc::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 37%,rgba(50,70,100,.55) 37%,rgba(50,70,100,.55) 40%,transparent 40%),linear-gradient(90deg,transparent 24%,rgba(50,70,100,.5) 24%,rgba(50,70,100,.5) 27%,transparent 27%),linear-gradient(90deg,transparent 59%,rgba(50,70,100,.5) 59%,rgba(50,70,100,.5) 62%,transparent 62%),linear-gradient(180deg,transparent 64%,rgba(50,70,100,.45) 64%,rgba(50,70,100,.45) 66%,transparent 66%)}
+.mblk{position:absolute;border-radius:3px;background:rgba(28,42,66,.7)}
+.mpin{position:absolute;transform:translate(-50%,-100%);cursor:pointer;display:flex;flex-direction:column;align-items:center;transition:transform .2s}
+.mpin:hover{transform:translate(-50%,-100%) scale(1.15)}
+.mpb{color:#fff;border-radius:9px;padding:3px 7px;font-size:9px;font-weight:700;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.mpt{width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent}
+.musr{position:absolute;transform:translate(-50%,-50%)}
+.mudot{width:14px;height:14px;border-radius:50%;background:var(--red);border:2px solid #fff;box-shadow:0 0 0 4px rgba(229,64,42,.25)}
+.mpls{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(229,64,42,.4);animation:mPls 2s ease infinite}
+@keyframes mPls{0%{transform:translate(-50%,-50%) scale(.5);opacity:1}100%{transform:translate(-50%,-50%) scale(2.2);opacity:0}}
+.mbar{position:absolute;top:10px;left:10px;right:10px;z-index:5;display:flex;gap:6px}
+.minp{flex:1;background:rgba(14,14,16,.92);backdrop-filter:blur(12px);border:1px solid var(--bd2);border-radius:10px;padding:7px 11px;font-size:11px;color:var(--t1);font-family:var(--ff-b);outline:none}
+.minp::placeholder{color:var(--t3)}
+.minp:focus{border-color:var(--red)}
+.mlbtn{background:rgba(14,14,16,.92);backdrop-filter:blur(12px);border:1px solid var(--bd2);border-radius:10px;padding:7px;color:var(--t1);font-size:13px;cursor:pointer;width:34px;display:flex;align-items:center;justify-content:center}
+.mcard{position:absolute;bottom:58px;left:10px;right:10px;z-index:5;background:rgba(14,14,16,.95);backdrop-filter:blur(16px);border:1px solid var(--bd2);border-radius:13px;padding:11px;display:none}
+.mcard.show{display:block;animation:sU .22s ease}
+@keyframes sU{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.mcr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px}
+.mcnm{color:var(--t1);font-weight:700;font-size:12px}
+.mcs{font-size:9px;font-weight:600;padding:2px 7px;border-radius:7px}
+.mcs.op{background:rgba(22,101,52,.5);color:#4ade80}
+.mcs.cl{background:rgba(127,29,29,.4);color:#f87171}
+.mcm{display:flex;gap:8px;margin-bottom:7px;font-size:10px;color:var(--t2)}
+.mcbs{display:flex;gap:5px}
+.mcb{flex:1;padding:7px;border-radius:8px;border:none;font-size:10px;font-weight:700;font-family:var(--ff-b);cursor:pointer;transition:opacity .15s}
+.mcb:hover{opacity:.88}
+.mcb.sec{background:var(--s3);color:var(--t2)}
+.mtrn{position:absolute;bottom:58px;left:10px;right:10px;z-index:5;background:rgba(14,14,16,.95);backdrop-filter:blur(16px);border:1px solid var(--bd2);border-radius:13px;padding:11px;display:none}
+.mtrn.show{display:block;animation:sU .22s ease}
+.mtt{color:var(--t1);font-weight:700;font-size:11px;margin-bottom:8px}
+.mto{display:flex;align-items:center;gap:9px;padding:7px;background:var(--s2);border-radius:8px;margin-bottom:4px;cursor:pointer;transition:background .15s}
+.mto:hover{background:var(--s3)}
+.mtic{font-size:17px;width:26px;text-align:center}
+.mtl{color:var(--t1);font-size:11px;font-weight:600}
+.mttm{color:var(--t3);font-size:10px;margin-left:auto}
+.mtgo{width:100%;background:var(--red);color:#fff;border:none;border-radius:8px;padding:8px;font-size:12px;font-weight:700;font-family:var(--ff-b);cursor:pointer;margin-top:5px}
+/* DETAIL */
+.dhr{height:148px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;flex-shrink:0}
+.dbk,.dfv{position:absolute;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:none;border-radius:50%;width:30px;height:30px;color:var(--t1);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;top:10px;transition:background .15s}
+.dbk:hover,.dfv:hover{background:rgba(0,0,0,.75)}
+.dbk{left:10px}.dfv{right:10px}
+.dscr{flex:1;overflow-y:auto;padding:11px 15px 78px}
+.dtop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px}
+.dnm{font-family:var(--ff-d);font-size:17px;font-weight:800;color:var(--t1)}
+.dar{font-size:10px;color:var(--t3);margin-bottom:5px}
+.dpbx{border-radius:8px;padding:5px 9px;text-align:center;flex-shrink:0}
+.dpv{color:#fff;font-weight:900;font-size:14px}
+.dpl{color:rgba(255,255,255,.6);font-size:9px}
+.drat{display:flex;align-items:center;gap:4px;font-size:10px;margin-bottom:8px;flex-wrap:wrap}
+.dst{color:#F39C12}.drv{color:var(--t1);font-weight:700}.drc{color:var(--t3)}
+.dhr2{margin-left:auto;color:var(--t3);font-size:9px}
+.dopn{font-size:9px;font-weight:600;padding:2px 6px;border-radius:6px}
+.dopn.y{background:rgba(22,101,52,.4);color:#4ade80}
+.dopn.n{background:rgba(127,29,29,.35);color:#f87171}
+.dsts{display:flex;gap:5px;margin-bottom:9px}
+.dst2{flex:1;background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:6px 4px;text-align:center}
+.dsi{font-size:13px;margin-bottom:2px}.dsl{color:var(--t2);font-size:9px;font-weight:600}
+.dsec{color:var(--t1);font-weight:700;font-size:12px;margin:9px 0 6px}
+.dtgs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
+.dtg{background:var(--s2);border:1px solid;padding:4px 8px;border-radius:11px;font-size:10px;font-weight:600}
+.deq{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+.deqi{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:6px 9px;text-align:center}
+.deqic{font-size:14px;margin-bottom:2px}.deqn{color:var(--t3);font-size:9px}
+.dmi{display:flex;gap:5px;margin-bottom:9px;overflow-x:auto}
+.dmib{flex-shrink:0;background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:5px 9px;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:48px;cursor:pointer;transition:all .18s}
+.dmib:hover{border-color:var(--bd2)}
+.dmii{font-size:14px}.dmil{font-size:8px;color:var(--t3);font-weight:600;text-align:center}
+/* Insights */
+.dins{background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:10px;margin-bottom:9px}
+.dinst{color:var(--t1);font-size:11px;font-weight:700;margin-bottom:7px}
+.dinsr{display:flex;gap:5px;margin-bottom:7px;flex-wrap:wrap}
+.dinsc{display:flex;align-items:center;gap:4px;background:var(--s3);border-radius:7px;padding:4px 7px;font-size:9px;color:var(--t2)}
+.dinsb{margin-top:5px}
+.dinsbr{display:flex;justify-content:space-between;font-size:9px;color:var(--t3);margin-bottom:3px}
+.dinsbar{height:4px;background:var(--s3);border-radius:2px;overflow:hidden;margin-bottom:5px}
+.dinsf{height:100%;border-radius:2px;transition:width .6s ease}
+/* Reviews */
+.drhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.drbt{background:var(--red-dim);color:var(--red);border:1px solid rgba(229,64,42,.25);border-radius:7px;padding:4px 9px;font-size:10px;font-weight:600;font-family:var(--ff-b);cursor:pointer}
+.rform{background:var(--s2);border:1px solid rgba(229,64,42,.2);border-radius:10px;padding:11px;margin-bottom:9px;display:none}
+.rfl{color:var(--t1);font-weight:600;font-size:11px;margin-bottom:6px;display:block}
+.rfst{display:flex;gap:5px;margin-bottom:8px}
+.rfstar{background:none;border:none;font-size:17px;cursor:pointer;filter:grayscale(1);opacity:.3;transition:all .15s}
+.rfstar.on{filter:none;opacity:1}
+.rfta{width:100%;background:var(--s3);border:1px solid var(--bd2);border-radius:7px;color:var(--t1);padding:6px 8px;font-size:11px;resize:none;height:52px;font-family:var(--ff-b);margin-bottom:6px}
+.rfta::placeholder{color:var(--t3)}
+.rfpo{width:100%;color:#fff;border:none;border-radius:7px;padding:7px;font-size:12px;font-weight:700;font-family:var(--ff-b);cursor:pointer;transition:opacity .15s}
+.rfpo:hover{opacity:.88}
+.rit{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:9px;margin-bottom:6px}
+.rith{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.ritav{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700}
+.ritnm{color:var(--t1);font-weight:700;font-size:11px}
+.ritst{color:#F39C12;font-size:10px}
+.rittx{color:var(--t2);font-size:11px;line-height:1.5}
+.bcta{position:absolute;bottom:0;left:0;right:0;padding:9px 15px 17px;background:linear-gradient(to top,#0B0B0D 52%,transparent)}
+.bkbt{width:100%;color:#fff;border:none;border-radius:13px;padding:12px;font-size:13px;font-weight:800;font-family:var(--ff-b);cursor:pointer;transition:opacity .15s}
+.bkbt:hover{opacity:.9}
+/* BOOKING */
+.bkhdr{padding:9px 15px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.bkbk{background:var(--s2);border:none;border-radius:50%;width:30px;height:30px;color:var(--t1);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.bktit{color:var(--t1);font-weight:800;font-size:13px}
+.bksub{color:var(--t3);font-size:10px}
+.bkpg{display:flex;gap:4px;padding:9px 15px;flex-shrink:0}
+.bkbar{flex:1;height:3px;border-radius:2px;background:var(--s3);transition:background .28s}
+.bkbar.on{background:var(--red)}
+.bkbdy{flex:1;overflow-y:auto;padding:4px 15px 70px}
+.bkstp{display:none;padding-top:4px}
+.bkstp.on{display:block}
+.bkstit{color:var(--t1);font-weight:800;font-size:13px;margin-bottom:9px}
+.drow{display:flex;gap:5px;overflow-x:auto;margin-bottom:11px}
+.dbt{flex-shrink:0;width:39px;padding:6px 0;background:var(--s2);border:1px solid var(--bd);border-radius:9px;cursor:pointer;text-align:center;transition:all .16s}
+.ddy{font-size:8px;font-weight:700;letter-spacing:.04em;margin-bottom:2px}
+.dbt:not(.on) .ddy{color:var(--t3)}
+.dbt.on .ddy{color:rgba(255,255,255,.65)}
+.dnum{font-size:13px;font-weight:800}
+.dbt:not(.on) .dnum{color:var(--t2)}
+.dbt.on .dnum{color:#fff}
+.tgrd{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.tsl{padding:7px 0;background:var(--s2);border:1px solid var(--bd);border-radius:8px;color:var(--t2);font-size:11px;font-weight:600;font-family:var(--ff-b);cursor:pointer;transition:all .16s}
+.tsl:hover:not(.off){background:var(--s3)}
+.tsl.on{color:#fff}
+.tsl.off{background:var(--bg);border-color:#1A1A1C;color:#2A2A2A;text-decoration:line-through;cursor:not-allowed}
+.npck{background:var(--s2);border:1px solid var(--bd);border-radius:13px;padding:15px;display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.nbtn{width:37px;height:37px;border-radius:50%;border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--s3);transition:background .15s}
+.nbtn:hover{background:var(--s4)}
+.nbtn.plus{background:var(--red)}
+.nbtn.plus:hover{opacity:.88}
+.nval{color:var(--t1);font-size:30px;font-weight:900;text-align:center}
+.nlbl{color:var(--t3);font-size:10px;text-align:center}
+.nnot{color:var(--t3);font-size:10px;text-align:center;margin-top:4px}
+.smbox{background:var(--s2);border-radius:11px;padding:13px;border-left:2px solid var(--red)}
+.smrow{display:flex;justify-content:space-between;padding-bottom:7px;margin-bottom:7px;border-bottom:1px solid var(--bd)}
+.smlbl{color:var(--t3);font-size:11px}
+.smval{color:var(--t1);font-size:11px;font-weight:600;text-align:right;max-width:56%}
+.smtot{display:flex;justify-content:space-between;align-items:baseline}
+.smtotl{color:var(--t1);font-weight:800;font-size:12px}
+.smtotv{font-weight:900;font-size:16px}
+.bkca{position:absolute;bottom:0;left:0;right:0;padding:9px 15px 17px;background:linear-gradient(to top,#0B0B0D 52%,transparent)}
+.bkcb{width:100%;color:#fff;border:none;border-radius:13px;padding:12px;font-size:13px;font-weight:800;font-family:var(--ff-b);cursor:pointer;transition:opacity .15s}
+.bkcb:hover{opacity:.9}
+/* CONFIRMATION */
+.conf{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;overflow-y:auto}
+.cico{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:13px;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.ctit{font-family:var(--ff-d);font-size:21px;font-weight:800;color:var(--t1);margin-bottom:4px;text-align:center}
+.ctxt{color:var(--t2);font-size:12px;text-align:center;margin-bottom:14px;line-height:1.6}
+.ctxt strong{color:var(--red)}
+.qr{background:#fff;border-radius:9px;padding:9px;width:96px;height:96px;display:grid;grid-template-columns:repeat(7,1fr);gap:1.5px;margin-bottom:14px}
+.qrpx{border-radius:1px}
+.cdtl{background:var(--s2);border:1px solid var(--bd);border-radius:11px;padding:11px 13px;width:100%;margin-bottom:11px}
+.cdrw{display:flex;justify-content:space-between;margin-bottom:4px}
+.cdrw:last-child{margin-bottom:0}
+.cdrw span{color:var(--t3);font-size:11px}
+.cbtns{display:flex;gap:7px;width:100%;margin-bottom:9px}
+.cbtn{flex:1;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:9px;color:var(--t1);font-weight:700;font-size:11px;font-family:var(--ff-b);cursor:pointer;transition:background .15s}
+.cbtn:hover{background:var(--s3)}
+.chome{width:100%;color:#fff;border:none;border-radius:13px;padding:12px;font-size:13px;font-weight:800;font-family:var(--ff-b);cursor:pointer;transition:opacity .15s}
+.chome:hover{opacity:.9}
+/* PROFILE */
+.prfhdr{padding:9px 15px 13px;background:#0B0B0D;flex-shrink:0;border-bottom:1px solid var(--bd)}
+.prfbk{background:var(--s2);border:none;border-radius:50%;width:30px;height:30px;color:var(--t1);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-bottom:11px}
+.prfinf{display:flex;align-items:center;gap:11px}
+.prfav{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--red),#7B2FBE);display:flex;align-items:center;justify-content:center;font-size:21px}
+.prfnm{font-family:var(--ff-d);font-size:15px;font-weight:700;color:var(--t1)}
+.prfrl{font-size:11px;color:var(--t3);margin-top:2px}
+.prfbdy{flex:1;overflow-y:auto;padding:13px 15px 65px}
+.prfsec{color:var(--t1);font-weight:700;font-size:12px;margin:12px 0 7px}
+.prfacts{display:flex;gap:7px;margin-bottom:13px}
+.prfact{flex:1;background:var(--s2);border:1px solid var(--bd);border-radius:11px;padding:11px;text-align:center;cursor:pointer;transition:all .18s}
+.prfact:hover{border-color:var(--bd2);background:var(--s3)}
+.prfaci{font-size:20px;margin-bottom:4px}
+.prfacl{color:var(--t2);font-size:10px;font-weight:600}
+.prfsr{display:flex;gap:6px;margin-bottom:12px}
+.prfst{flex:1;background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:9px;text-align:center}
+.prfstv{color:var(--t1);font-weight:800;font-size:17px}
+.prfstl{color:var(--t3);font-size:9px;margin-top:2px}
+.visc{display:flex;align-items:center;gap:9px;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:9px;margin-bottom:6px;cursor:pointer;transition:all .18s}
+.visc:hover{border-color:var(--bd2)}
+.visim{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.visnm{color:var(--t1);font-size:12px;font-weight:600}
+.visdt{color:var(--t3);font-size:10px}
+.visfv{margin-left:auto;font-size:14px;cursor:pointer;background:none;border:none;color:var(--t3)}
+.prfmi{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--bd);cursor:pointer}
+.prfmi:last-child{border-bottom:none}
+.prfmic{font-size:15px;width:22px;text-align:center}
+.prfmil{color:var(--t2);font-size:12px;flex:1}
+.prfmia{color:var(--t3);font-size:12px}
+/* RESERVATIONS */
+.rsvhdr{padding:10px 15px 13px;background:#0B0B0D;flex-shrink:0;border-bottom:1px solid var(--bd)}
+.rsvhdr-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.rsvbk{background:var(--s2);border:none;border-radius:50%;width:30px;height:30px;color:var(--t1);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.rsvtit{font-family:var(--ff-d);font-size:17px;font-weight:800;color:var(--t1)}
+.rsvtabs{display:flex;gap:3px}
+.rsvtab{flex:1;padding:7px 0;background:var(--s2);color:var(--t3);border:none;border-radius:8px;font-size:11px;font-weight:600;font-family:var(--ff-b);cursor:pointer;transition:all .18s}
+.rsvtab.on{background:var(--red);color:#fff}
+.rsvbdy{flex:1;overflow-y:auto;padding:12px 15px 65px}
+.rsvcard{background:var(--s1);border:1px solid var(--bd);border-radius:13px;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:border-color .16s}
+.rsvcard:hover{border-color:var(--bd2)}
+.rsvcard-top{display:flex;align-items:center;gap:10px;padding:11px 12px 0}
+.rsvcard-img{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.rsvcard-name{color:var(--t1);font-weight:700;font-size:13px}
+.rsvcard-area{color:var(--t3);font-size:10px;margin-top:1px}
+.rsvcard-badge{margin-left:auto;padding:3px 8px;border-radius:8px;font-size:9px;font-weight:700;flex-shrink:0}
+.rsvcard-badge.upcoming{background:rgba(22,101,52,.4);color:#4ade80}
+.rsvcard-badge.past{background:var(--s3);color:var(--t3)}
+.rsvcard-badge.cancelled{background:rgba(127,29,29,.35);color:#f87171}
+.rsvcard-info{display:flex;gap:12px;padding:8px 12px;border-bottom:1px solid var(--bd)}
+.rsv-inf{display:flex;flex-direction:column;gap:1px}
+.rsv-inf-lbl{font-size:9px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.rsv-inf-val{font-size:11px;color:var(--t2);font-weight:600}
+.rsvcard-actions{display:flex}
+.rsvcard-action{flex:1;padding:9px;background:none;border:none;border-right:1px solid var(--bd);color:var(--t3);font-size:11px;font-weight:600;font-family:var(--ff-b);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px}
+.rsvcard-action:last-child{border-right:none}
+.rsvcard-action:hover{background:var(--s2);color:var(--t2)}
+.rsvcard-action.red{color:var(--red)}
+.rsvcard-action.red:hover{background:rgba(229,64,42,.1)}
+.rsv-empty{text-align:center;padding:40px 20px;color:var(--t3);font-size:12px}
+.rsv-empty-icon{font-size:36px;margin-bottom:12px}
+.rsv-empty-title{color:var(--t2);font-size:14px;font-weight:700;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<!-- LEFT PANEL -->
+<div class="panel">
+  <div class="p-brand"><div class="p-dot"></div><span class="p-bl">UX Case Study</span></div>
+  <h1 class="p-title">Plur<span>.</span><br>App</h1>
+  <p class="p-desc">A mobile app helping remote workers, freelancers and digital nomads discover and book café workspaces with real-time availability.</p>
+  <div class="p-div"></div>
+  <div class="pm"><div class="pm-l">Designer</div><div class="pm-v">Semeli Tisarchontou</div></div>
+  <div class="pm"><div class="pm-l">Institution</div><div class="pm-v">SAE Institute Athens</div></div>
+  <div class="pm"><div class="pm-l">Type</div><div class="pm-v">User-Centered Design · Mobile</div></div>
+  <div class="pm"><div class="pm-l">Platform</div><div class="pm-v">iOS · Interactive Prototype</div></div>
+  <div class="p-div"></div>
+  <div class="ps">The Problem</div>
+  <div class="pp"><span>🔍</span><p>Remote workers waste time finding cafés with good WiFi, available seats, and equipment — with no way to check before arriving.</p></div>
+  <div class="pp"><span>💡</span><p>Plur aggregates real-time availability, equipment, noise levels, insights and seamless booking into one app.</p></div>
+  <div class="ps">Target Users</div>
+  <div class="ppills">
+    <span class="ppill"><i></i>Remote Workers</span>
+    <span class="ppill"><i></i>Freelancers</span>
+    <span class="ppill"><i></i>Digital Nomads</span>
+    <span class="ppill"><i></i>Hybrid Workers</span>
+  </div>
+  <div class="ps">Screens — click to preview</div>
+  <div class="p-nav">
+    <button class="pnb on" id="pnav0" onclick="jumpTo('home',0)"><span class="n">1</span>Home &amp; Discover</button>
+    <button class="pnb" id="pnav1" onclick="jumpTo('map',1)"><span class="n">2</span>Map View</button>
+    <button class="pnb" id="pnav2" onclick="jumpTo('detail',2)"><span class="n">3</span>Café Detail + Insights</button>
+    <button class="pnb" id="pnav3" onclick="jumpTo('booking',3)"><span class="n">4</span>Booking Flow</button>
+    <button class="pnb" id="pnav6" onclick="jumpTo('reservations',6)"><span class="n">5</span>My Bookings</button>
+    <button class="pnb" id="pnav4" onclick="jumpTo('confirmation',4)"><span class="n">6</span>Confirmation</button>
+    <button class="pnb" id="pnav5" onclick="jumpTo('profile',5)"><span class="n">7</span>Profile &amp; My Places</button>
+  </div>
+  <div class="ps">Built With</div>
+  <div class="ptags"><span class="ptag">HTML5</span><span class="ptag">CSS3</span><span class="ptag">Vanilla JS</span><span class="ptag">Figma</span><span class="ptag">User Research</span></div>
+  <div class="pft"><p>6 fully interactive screens →<br><strong>Click café cards, map pins, and all buttons.</strong></p></div>
+</div>
+
+<!-- STAGE -->
+<div class="stage">
+  <div class="phone">
+    <!-- STATUS BAR -->
+    <div class="sb"><span>9:41</span><div class="sb-n"><div class="sb-p"></div></div>
+      <div class="sb-r">
+        <svg width="14" height="10" fill="currentColor" opacity=".9"><rect x="0" y="6" width="2.5" height="4" rx=".4"/><rect x="3.8" y="4" width="2.5" height="6" rx=".4"/><rect x="7.6" y="2" width="2.5" height="8" rx=".4"/><rect x="11.4" y="0" width="2.5" height="10" rx=".4"/></svg>
+        <svg width="14" height="10" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".9"><path d="M7 2C9.2 2 11.1 2.9 12.5 4.4"/><path d="M7 2C4.8 2 2.9 2.9 1.5 4.4"/><path d="M7 5C8.3 5 9.4 5.6 10.2 6.6"/><path d="M7 5C5.7 5 4.6 5.6 3.8 6.6"/><circle cx="7" cy="9" r=".9" fill="currentColor" stroke="none"/></svg>
+        <svg width="22" height="11" fill="none" opacity=".9"><rect x=".5" y=".5" width="18" height="10" rx="3" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="13" height="7" rx="1.5" fill="currentColor"/><path d="M20 3.5v3a1.5 1.5 0 000-3z" fill="currentColor" fill-opacity=".4"/></svg>
+      </div>
+    </div>
+    <div class="tw"><div class="toast" id="toast"></div></div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+      <div class="sbp">
+        <div class="sbpr"><div class="sbav">👤</div><div class="sbnm">Semeli T.</div><div class="sbrl">Designer · Remote</div></div>
+        <button class="sbi" onclick="closeSB();goTo('home')">🏠&nbsp; Home</button>
+        <button class="sbi" onclick="closeSB();goTo('reservations')">📅&nbsp; Reservations <span class="sbb">2</span></button>
+        <button class="sbi" onclick="closeSB();notify('No favorites saved yet ❤️')">❤️&nbsp; Favorites</button>
+        <button class="sbi" onclick="closeSB();notify('No booking history yet')">🕐&nbsp; History</button>
+        <button class="sbi" onclick="closeSB();goTo('profile')">👤&nbsp; My Profile</button>
+        <button class="sbi" onclick="closeSB();notify('Settings coming soon')">⚙️&nbsp; Settings</button>
+      </div>
+      <div class="sb-sc" onclick="closeSB()"></div>
+    </div>
+
+    <!-- HOME -->
+    <div class="screen active" id="homeScreen">
+      <div class="hh">
+        <div class="htop">
+          <button class="hmen" onclick="openSB()"><span></span><span></span><span></span></button>
+          <div class="hlog">PLUR</div>
+          <div class="hav" onclick="goTo('profile')">👤</div>
+        </div>
+        <div class="htit">Find your<br><span>workspace</span></div>
+        <div class="hloc">📍 Athens, Greece · 24 spaces nearby</div>
+        <div class="hsrch"><span>🔍</span><p>Search cafés, neighborhoods…</p></div>
+      </div>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'discover')">Discover</button>
+        <button class="tab" onclick="switchTab(this,'map')">Map</button>
+        <button class="tab" onclick="switchTab(this,'saved')">Saved</button>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="clist" id="clist"></div>
+      <div class="bnav">
+        <button class="bni on" onclick="goTo('home')"><span class="bni-ic">🏠</span><span class="bni-lb">Home</span></button>
+        <button class="bni" onclick="goTo('map')"><span class="bni-ic">🗺️</span><span class="bni-lb">Map</span></button>
+        <button class="bni" onclick="goTo('reservations')"><span class="bni-ic">📅</span><span class="bni-lb">Bookings</span></button>
+        <button class="bni" onclick="notify('No messages yet 💬')"><span class="bni-ic">💬</span><span class="bni-lb">Messages</span></button>
+        <button class="bni" onclick="goTo('profile')"><span class="bni-ic">👤</span><span class="bni-lb">Profile</span></button>
+      </div>
+    </div>
+
+    <!-- MAP -->
+    <div class="screen" id="mapScreen">
+      <div class="mapw">
+        <div class="mbar">
+          <input class="minp" id="msrch" placeholder="Search location…" oninput="filterPins(this.value)">
+          <button class="mlbtn" onclick="notify('Locating you… 📍')">📍</button>
+        </div>
+        <div class="mapc" id="mapc">
+          <div class="mblk" style="left:7%;top:9%;width:17%;height:11%"></div>
+          <div class="mblk" style="left:30%;top:7%;width:20%;height:10%"></div>
+          <div class="mblk" style="left:57%;top:11%;width:14%;height:13%"></div>
+          <div class="mblk" style="left:75%;top:7%;width:17%;height:15%"></div>
+          <div class="mblk" style="left:5%;top:27%;width:15%;height:8%"></div>
+          <div class="mblk" style="left:37%;top:51%;width:19%;height:10%"></div>
+          <div class="mblk" style="left:64%;top:47%;width:14%;height:10%"></div>
+          <div class="mblk" style="left:9%;top:61%;width:17%;height:13%"></div>
+          <div class="mblk" style="left:71%;top:65%;width:19%;height:12%"></div>
+          <div class="musr" style="left:50%;top:50%">
+            <div class="mpls"></div>
+            <div class="mudot"></div>
+          </div>
+          <div id="mpins"></div>
+        </div>
+        <div class="mcard" id="mcard">
+          <div class="mcr">
+            <div class="mcnm" id="mcnm">—</div>
+            <div class="mcs op" id="mcst">Open Now</div>
+          </div>
+          <div class="mcm">
+            <span id="mcrt">★ 4.8</span>
+            <span id="mcds">0.3 km</span>
+            <span id="mcpr">€3/hr</span>
+            <span id="mcse">5 seats</span>
+          </div>
+          <div class="mcbs">
+            <button class="mcb sec" onclick="showTrans()">🧭 Directions</button>
+            <button class="mcb" id="mcbb" style="color:#fff" onclick="openFromMap()">Book Now</button>
+          </div>
+        </div>
+        <div class="mtrn" id="mtrn">
+          <div class="mtt">How to get there</div>
+          <div class="mto" onclick="notify('Walking directions started 🚶')"><span class="mtic">🚶</span><div><div class="mtl">Walking</div></div><span class="mttm">5 min</span></div>
+          <div class="mto" onclick="notify('Metro route loaded 🚇')"><span class="mtic">🚇</span><div><div class="mtl">Metro</div></div><span class="mttm">8 min</span></div>
+          <div class="mto" onclick="notify('Bus route loaded 🚌')"><span class="mtic">🚌</span><div><div class="mtl">Bus</div></div><span class="mttm">12 min</span></div>
+          <div class="mto" onclick="notify('Taxi booked! 🚕')"><span class="mtic">🚕</span><div><div class="mtl">Taxi</div></div><span class="mttm">4 min</span></div>
+          <button class="mtgo" onclick="hideTrans();notify('Navigation started! 🗺️')">GO!</button>
+        </div>
+      </div>
+      <div class="bnav">
+        <button class="bni" onclick="goTo('home')"><span class="bni-ic">🏠</span><span class="bni-lb">Home</span></button>
+        <button class="bni on"><span class="bni-ic">🗺️</span><span class="bni-lb">Map</span></button>
+        <button class="bni" onclick="goTo('reservations')"><span class="bni-ic">📅</span><span class="bni-lb">Bookings</span></button>
+        <button class="bni" onclick="notify('No messages yet 💬')"><span class="bni-ic">💬</span><span class="bni-lb">Messages</span></button>
+        <button class="bni" onclick="goTo('profile')"><span class="bni-ic">👤</span><span class="bni-lb">Profile</span></button>
+      </div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="screen" id="detailScreen">
+      <div class="dhr" id="dhr">☕</div>
+      <button class="dbk" id="dbkbtn" onclick="goTo('home')">←</button>
+      <button class="dfv" id="dfvbtn" onclick="togFav()">♡</button>
+      <div class="dscr">
+        <div class="dtop">
+          <div><div class="dnm" id="dnm">—</div><div class="dar" id="dar">—</div></div>
+          <div class="dpbx" id="dpbx"><div class="dpv" id="dpv">—</div><div class="dpl">/hr</div></div>
+        </div>
+        <div class="drat" id="drat"></div>
+        <div class="dsts" id="dsts"></div>
+        <div class="dmi">
+          <div class="dmib" onclick="notify('Menu opened 📋')"><span class="dmii">📋</span><span class="dmil">Menu</span></div>
+          <div class="dmib" onclick="notify('Calling café… 📞')"><span class="dmii">📞</span><span class="dmil">Call</span></div>
+          <div class="dmib" onclick="goTo('map')"><span class="dmii">🧭</span><span class="dmil">Directions</span></div>
+          <div class="dmib" onclick="notify('Link copied! 🔗')"><span class="dmii">🔗</span><span class="dmil">Share</span></div>
+          <div class="dmib" onclick="notify('Saved to calendar 📅')"><span class="dmii">📅</span><span class="dmil">Save</span></div>
+        </div>
+        <div class="dsec">Amenities</div>
+        <div class="dtgs" id="dtgs"></div>
+        <div class="dsec">Equipment</div>
+        <div class="deq" id="deq"></div>
+        <div class="dsec">Insights ✦</div>
+        <div class="dins" id="dins"></div>
+        <div class="drhdr">
+          <div class="dsec" style="margin:0">Reviews</div>
+          <button class="drbt" onclick="togRevForm()">+ Leave a review</button>
+        </div>
+        <div class="rform" id="rform">
+          <span class="rfl">Your rating</span>
+          <div class="rfst" id="rfst"></div>
+          <textarea class="rfta" id="rfta" placeholder="Share your experience…"></textarea>
+          <button class="rfpo" id="rfpo" onclick="subRev()">Post Review</button>
+        </div>
+        <div id="revlist"></div>
+      </div>
+      <div class="bcta"><button class="bkbt" id="bkbt" onclick="goTo('booking')">BOOK NOW</button></div>
+    </div>
+
+    <!-- BOOKING -->
+    <div class="screen" id="bookingScreen">
+      <div class="bkhdr">
+        <button class="bkbk" onclick="goTo('detail')">←</button>
+        <div><div class="bktit">Reserve a Spot</div><div class="bksub" id="bkn">—</div></div>
+      </div>
+      <div class="bkpg"><div class="bkbar on"></div><div class="bkbar"></div><div class="bkbar"></div></div>
+      <div class="bkbdy">
+        <div class="bkstp on" id="bks1">
+          <div class="bkstit">Select Date &amp; Time</div>
+          <div class="drow" id="drow"></div>
+          <div class="tgrd" id="tgrd"></div>
+        </div>
+        <div class="bkstp" id="bks2">
+          <div class="bkstit">Number of Persons</div>
+          <div class="npck">
+            <button class="nbtn" onclick="chPx(-1)">−</button>
+            <div><div class="nval" id="pxn">1</div><div class="nlbl" id="pxl">person</div></div>
+            <button class="nbtn plus" onclick="chPx(1)">+</button>
+          </div>
+          <div class="nnot" id="pxnt"></div>
+        </div>
+        <div class="bkstp" id="bks3">
+          <div class="bkstit">Booking Summary</div>
+          <div class="smbox">
+            <div class="smrow"><span class="smlbl">Venue</span><span class="smval" id="sv">—</span></div>
+            <div class="smrow"><span class="smlbl">Date</span><span class="smval" id="sd">—</span></div>
+            <div class="smrow"><span class="smlbl">Time</span><span class="smval" id="st">—</span></div>
+            <div class="smrow"><span class="smlbl">Persons</span><span class="smval" id="sp">—</span></div>
+            <div class="smrow" style="border:none;padding:0;margin-bottom:9px"><span class="smlbl">Address</span><span class="smval" id="sa">—</span></div>
+            <div class="smtot"><span class="smtotl">Total (1 hr)</span><span class="smtotv" id="stot">—</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="bkca"><button class="bkcb" id="bkcb" onclick="nxStep()">Continue →</button></div>
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="screen" id="confirmationScreen">
+      <div class="conf">
+        <div class="cico" id="cico">✓</div>
+        <div class="ctit">Congrats!</div>
+        <p class="ctxt">You reserved a spot at<br><strong id="ccf">—</strong></p>
+        <div class="qr" id="qr"></div>
+        <div class="cdtl">
+          <div class="cdrw"><span>⏱ 1 hour slot</span><span id="ctm">—</span></div>
+          <div class="cdrw"><span id="cad">—</span><span>Seat #<span id="cst">—</span></span></div>
+        </div>
+        <div class="cbtns">
+          <button class="cbtn" onclick="notify('Opening in Maps 🗺️')">📍 Directions</button>
+          <button class="cbtn" onclick="notify('Link copied! 🔗')">🔗 Share</button>
+        </div>
+        <button class="chome" id="chm" onclick="goTo('home')">← Back to Home</button>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="screen" id="profileScreen">
+      <div class="prfhdr">
+        <button class="prfbk" onclick="goTo('home')">←</button>
+        <div class="prfinf">
+          <div class="prfav">👤</div>
+          <div><div class="prfnm">Semeli T.</div><div class="prfrl">Designer · Remote Worker</div></div>
+        </div>
+      </div>
+      <div class="prfbdy">
+        <div class="prfsec">Quick Actions</div>
+        <div class="prfacts">
+          <div class="prfact" onclick="goTo('map')"><div class="prfaci">🗺️</div><div class="prfacl">Search in Map</div></div>
+          <div class="prfact" onclick="notify('Finding best match for you… ✨')"><div class="prfaci">🎯</div><div class="prfacl">Pick for me</div></div>
+        </div>
+        <div class="prfsr">
+          <div class="prfst"><div class="prfstv">12</div><div class="prfstl">Visits</div></div>
+          <div class="prfst"><div class="prfstv">4</div><div class="prfstl">Favorites</div></div>
+          <div class="prfst"><div class="prfstv">3</div><div class="prfstl">Reviews</div></div>
+        </div>
+        <div class="prfsec">Visited Places</div>
+        <div id="vislist"></div>
+        <div class="prfsec">Account</div>
+        <div class="prfmi" onclick="goTo('reservations')"><span class="prfmic">📅</span><span class="prfmil">My Reservations</span><span class="prfmia">›</span></div>
+        <div class="prfmi" onclick="notify('Friends feature coming soon 👥')"><span class="prfmic">👥</span><span class="prfmil">Friends</span><span class="prfmia">›</span></div>
+        <div class="prfmi" onclick="notify('Settings coming soon ⚙️')"><span class="prfmic">⚙️</span><span class="prfmil">Settings</span><span class="prfmia">›</span></div>
+        <div class="prfmi" onclick="notify('Signing out…')"><span class="prfmic">🚪</span><span class="prfmil">Sign Out</span><span class="prfmia">›</span></div>
+      </div>
+      <div class="bnav">
+        <button class="bni" onclick="goTo('home')"><span class="bni-ic">🏠</span><span class="bni-lb">Home</span></button>
+        <button class="bni" onclick="goTo('map')"><span class="bni-ic">🗺️</span><span class="bni-lb">Map</span></button>
+        <button class="bni" onclick="goTo('reservations')"><span class="bni-ic">📅</span><span class="bni-lb">Bookings</span></button>
+        <button class="bni" onclick="notify('No messages yet 💬')"><span class="bni-ic">💬</span><span class="bni-lb">Messages</span></button>
+        <button class="bni on"><span class="bni-ic">👤</span><span class="bni-lb">Profile</span></button>
+      </div>
+    </div>
+
+    <!-- RESERVATIONS -->
+    <div class="screen" id="reservationsScreen">
+      <div class="rsvhdr">
+        <div class="rsvhdr-top">
+          <button class="rsvbk" onclick="goTo(S.prev||'home')">←</button>
+          <div class="rsvtit">My Bookings</div>
+        </div>
+        <div class="rsvtabs">
+          <button class="rsvtab on" id="rsvTab0" onclick="switchRsvTab(0)">Upcoming</button>
+          <button class="rsvtab" id="rsvTab1" onclick="switchRsvTab(1)">Past</button>
+          <button class="rsvtab" id="rsvTab2" onclick="switchRsvTab(2)">Cancelled</button>
+        </div>
+      </div>
+      <div class="rsvbdy" id="rsvbdy"></div>
+      <div class="bnav">
+        <button class="bni" onclick="goTo('home')"><span class="bni-ic">🏠</span><span class="bni-lb">Home</span></button>
+        <button class="bni" onclick="goTo('map')"><span class="bni-ic">🗺️</span><span class="bni-lb">Map</span></button>
+        <button class="bni on"><span class="bni-ic">📅</span><span class="bni-lb">Bookings</span></button>
+        <button class="bni" onclick="notify('No messages yet 💬')"><span class="bni-ic">💬</span><span class="bni-lb">Messages</span></button>
+        <button class="bni" onclick="goTo('profile')"><span class="bni-ic">👤</span><span class="bni-lb">Profile</span></button>
+      </div>
+    </div>
+
+  </div><!-- /phone -->
+
+  <div class="spills">
+    <button class="spb on" id="sp0" onclick="jumpTo('home',0)">Home</button>
+    <button class="spb" id="sp1" onclick="jumpTo('map',1)">Map</button>
+    <button class="spb" id="sp2" onclick="jumpTo('detail',2)">Detail</button>
+    <button class="spb" id="sp3" onclick="jumpTo('booking',3)">Booking</button>
+    <button class="spb" id="sp4" onclick="jumpTo('confirmation',4)">Confirm</button>
+    <button class="spb" id="sp55" onclick="jumpTo('reservations',6)">Bookings</button>
+    <button class="spb" id="sp5" onclick="jumpTo('profile',5)">Profile</button>
+  </div>
+</div>
+
+<script>
+const CAFES=[
+  {id:1,name:"Dope Coffee",area:"Leoforos Alexandras 70, Athens",rating:4.8,reviews:143,dist:"0.3 km",price:"€3",pn:3,tags:["WiFi 5G","Power Outlets","Pet Friendly","Quiet Zone"],seats:12,avail:5,equip:["Printer","Monitor","Locker"],img:"☕",color:"#C0391B",hours:"07:00–23:00",noise:"Low",open:true,mx:48,my:43,ins:{pct:70,top:"Students & designers",wifi:5,plug:4,noise:5,out:3,pet:5}},
+  {id:2,name:"The Nomad Hub",area:"Ermou 45, Athens",rating:4.6,reviews:89,dist:"0.7 km",price:"€5",pn:5,tags:["WiFi 5G","Standing Desk","Meeting Room","Locker"],seats:20,avail:8,equip:["Printer","Projector","Monitor","Locker"],img:"🏙️",color:"#E74C3C",hours:"08:00–22:00",noise:"Medium",open:true,mx:73,my:28,ins:{pct:85,top:"Remote workers & startups",wifi:5,plug:5,noise:3,out:2,pet:2}},
+  {id:3,name:"Koukaki Brew",area:"Veikou 12, Athens",rating:4.9,reviews:211,dist:"1.2 km",price:"€2",pn:2,tags:["WiFi","Outdoor Seating","Pet Friendly","Chill Vibe"],seats:8,avail:2,equip:["Monitor"],img:"🌿",color:"#166534",hours:"09:00–21:00",noise:"Low",open:false,mx:23,my:69,ins:{pct:60,top:"Creatives & writers",wifi:3,plug:2,noise:5,out:5,pet:5}},
+  {id:4,name:"Syntagma Work Bar",area:"Stadiou 22, Athens",rating:4.4,reviews:57,dist:"1.8 km",price:"€6",pn:6,tags:["WiFi 5G","Phone Booth","Meeting Room","Premium"],seats:30,avail:15,equip:["Printer","Scanner","Projector","Monitor"],img:"💼",color:"#7B2FBE",hours:"06:00–24:00",noise:"Low",open:true,mx:79,my:65,ins:{pct:90,top:"Freelancers & consultants",wifi:5,plug:5,noise:5,out:1,pet:1}},
+];
+const REVIEWS=[
+  {name:"M.Larris",rating:5,text:"Great coffee and nice staff. Exactly what I needed for a focused morning.",av:"ML"},
+  {name:"Daria K.",rating:4,text:"Loved the vibe. WiFi was solid all day. Will definitely be back.",av:"DA"},
+  {name:"Ivan S.",rating:5,text:"Perfect for nomads. Found it on Plur and now it's my Athens go-to.",av:"IV"},
+];
+const TIMES=["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"];
+const UNAVAIL=["11:00","14:00","17:00"];
+const EQ={Printer:"🖨️",Monitor:"🖥️",Locker:"🔒",Projector:"📽️",Scanner:"📠","Phone Booth":"📞"};
+const SN=['home','map','detail','booking','confirmation','profile','reservations'];
+const VISITED=[{id:1,date:"29/08/23"},{id:2,date:"15/09/23"},{id:3,date:"02/10/23"}];
+let S={cafe:CAFES[0],filter:null,date:null,time:null,pax:1,step:1,fav:false,rev:0,prev:'home',cur:'home'};
+
+let _tt;
+function notify(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('show'),2600)}
+function openSB(){document.getElementById('sidebar').classList.add('open')}
+function closeSB(){document.getElementById('sidebar').classList.remove('open')}
+
+function goTo(n){
+  S.prev=S.cur;S.cur=n;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(n+'Screen').classList.add('active');
+  const i=SN.indexOf(n);
+  document.querySelectorAll('[id^="pnav"]').forEach((b,j)=>b.classList.toggle('on',j===i));
+  document.querySelectorAll('[id^="sp"]').forEach((b,j)=>b.classList.toggle('on',j===i));
+  if(n==='detail')rdDetail();
+  if(n==='map')rdMap();
+  if(n==='booking'){S.step=1;S.date=null;S.time=null;S.pax=1;rdBooking();}
+  if(n==='confirmation')rdConf();
+  if(n==='profile')rdProfile();
+  if(n==='reservations')rdReservations();
+}
+function jumpTo(n){if(n!=='home'&&n!=='map'&&n!=='profile')S.cafe=CAFES[0];goTo(n)}
+
+/* HOME */
+(()=>{
+  const row=document.getElementById('chips');
+  ['All','WiFi 5G','Pet Friendly','Meeting Room','Quiet Zone','Outdoor Seating'].forEach(tag=>{
+    const b=document.createElement('button');b.className='chip'+(tag==='All'?' on':'');b.textContent=tag;
+    b.onclick=()=>{S.filter=tag==='All'?null:tag;row.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.textContent===(S.filter||'All')));rdCards()};
+    row.appendChild(b);
+  });
+  rdCards();
+})();
+
+function switchTab(btn,n){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  if(n==='map')goTo('map');else if(n==='saved')notify('Saved places coming soon ❤️');
+}
+
+function rdCards(){
+  const list=document.getElementById('clist');list.innerHTML='';
+  const data=S.filter?CAFES.filter(c=>c.tags.includes(S.filter)):CAFES;
+  if(!data.length){list.innerHTML='<p style="color:var(--t3);font-size:11px;text-align:center;padding:22px 0">No cafés match this filter</p>';return}
+  data.forEach((c,i)=>{
+    const card=document.createElement('div');card.className='ccard';card.style.animationDelay=(i*.06)+'s';
+    card.onclick=()=>{S.cafe=c;S.prev='home';goTo('detail')};
+    const low=c.avail<=3;
+    card.innerHTML=`<div class="cimg" style="background:linear-gradient(135deg,${c.color}44,${c.color}18)">${c.img}<div class="cbg ${low?'low':'ok'}">${c.avail} left</div><div class="cds">${c.dist}</div></div><div class="cbdy"><div class="crow"><div><div class="cnm">${c.name}</div><div class="car">📍 ${c.area.split(',')[0]}</div></div><div><div class="cpr" style="color:${c.color}">${c.price}</div><div class="cpl">per hour</div></div></div><div class="cmt"><span class="cst">${'★'.repeat(Math.floor(c.rating))}</span><span class="crv">${c.rating}</span><span class="crc">(${c.reviews})</span><span class="cno">🔇 ${c.noise}</span></div><div class="ctgs">${c.tags.slice(0,3).map(t=>`<span class="ctg">${t}</span>`).join('')}</div></div>`;
+    list.appendChild(card);
+  });
+}
+
+/* MAP */
+function rdMap(){
+  const c=document.getElementById('mpins');c.innerHTML='';
+  CAFES.forEach(cafe=>{
+    const p=document.createElement('div');p.className='mpin';p.style.left=cafe.mx+'%';p.style.top=cafe.my+'%';
+    const low=cafe.avail<=3;
+    p.innerHTML=`<div class="mpb" style="background:${low?'var(--red)':cafe.color}">${cafe.price} · ${cafe.avail} left</div><div class="mpt" style="border-top:7px solid ${low?'var(--red)':cafe.color}"></div>`;
+    p.onclick=()=>showMCard(cafe);
+    c.appendChild(p);
+  });
+  document.getElementById('mcard').classList.remove('show');
+  document.getElementById('mtrn').classList.remove('show');
+  document.getElementById('msrch').value='';
+}
+function filterPins(v){
+  document.querySelectorAll('.mpin').forEach((p,i)=>{p.style.opacity=(!v||CAFES[i].name.toLowerCase().includes(v.toLowerCase()))?'1':'0.3'})
+}
+function showMCard(c){
+  S.cafe=c;
+  document.getElementById('mtrn').classList.remove('show');
+  document.getElementById('mcnm').textContent=c.name;
+  document.getElementById('mcst').textContent=c.open?'Open Now':'Closed';
+  document.getElementById('mcst').className='mcs '+(c.open?'op':'cl');
+  document.getElementById('mcrt').textContent='★ '+c.rating;
+  document.getElementById('mcds').textContent=c.dist;
+  document.getElementById('mcpr').textContent=c.price+'/hr';
+  document.getElementById('mcse').textContent=c.avail+' seats';
+  document.getElementById('mcbb').style.background=c.color;
+  document.getElementById('mcard').classList.add('show');
+}
+function showTrans(){document.getElementById('mcard').classList.remove('show');document.getElementById('mtrn').classList.add('show')}
+function hideTrans(){document.getElementById('mtrn').classList.remove('show')}
+function openFromMap(){S.prev='map';goTo('detail')}
+
+/* DETAIL */
+function rdDetail(){
+  const c=S.cafe;
+  const hero=document.getElementById('dhr');hero.textContent=c.img;hero.style.background=`linear-gradient(135deg,${c.color}55,${c.color}18)`;
+  document.getElementById('dbkbtn').onclick=()=>goTo(S.prev||'home');
+  S.fav=false;const fb=document.getElementById('dfvbtn');fb.textContent='♡';fb.style.color='var(--t1)';
+  document.getElementById('dnm').textContent=c.name;
+  document.getElementById('dar').textContent='📍 '+c.area;
+  document.getElementById('dpv').textContent=c.price;
+  document.getElementById('dpbx').style.background=c.color;
+  document.getElementById('drat').innerHTML=`<span class="dst">${'★'.repeat(Math.floor(c.rating))}</span><span class="drv">${c.rating}</span><span class="drc">(${c.reviews})</span><span class="dopn ${c.open?'y':'n'}">${c.open?'Open':'Closed'}</span><span class="dhr2" style="margin-left:auto">⏰ ${c.hours}</span>`;
+  document.getElementById('dsts').innerHTML=`<div class="dst2"><div class="dsi">💺</div><div class="dsl">${c.seats} seats</div></div><div class="dst2"><div class="dsi">✅</div><div class="dsl">${c.avail} free</div></div><div class="dst2"><div class="dsi">🔇</div><div class="dsl">${c.noise}</div></div><div class="dst2"><div class="dsi">📶</div><div class="dsl">WiFi 5G</div></div>`;
+  document.getElementById('dtgs').innerHTML=c.tags.map(t=>`<span class="dtg" style="color:${c.color};border-color:${c.color}44">${t}</span>`).join('');
+  document.getElementById('deq').innerHTML=c.equip.map(e=>`<div class="deqi"><div class="deqic">${EQ[e]||'📌'}</div><div class="deqn">${e}</div></div>`).join('');
+  // Insights
+  const ins=c.ins;const bars=[['WiFi',ins.wifi],['Plug-ins',ins.plug],['Noise',ins.noise],['Outside',ins.out],['Pet',ins.pet]];
+  const qlbls=['very low','low','fair','good','very good'];
+  document.getElementById('dins').innerHTML=`<div class="dinst">Did you know this place is preferred by…</div><div class="dinsr"><div class="dinsc">👥 ${ins.pct}% recommend</div><div class="dinsc">🏷️ ${ins.top}</div></div><div class="dinsb">${bars.map(([l,v])=>`<div class="dinsbr"><span>${l}</span><span>${qlbls[v-1]}</span></div><div class="dinsbar"><div class="dinsf" style="width:${v*20}%;background:${c.color}"></div></div>`).join('')}</div>`;
+  document.getElementById('revlist').innerHTML=REVIEWS.map(r=>`<div class="rit"><div class="rith"><div class="ritav" style="background:${c.color}">${r.av}</div><div><div class="ritnm">${r.name}</div><div class="ritst">${'★'.repeat(r.rating)}</div></div></div><div class="rittx">${r.text}</div></div>`).join('');
+  const bb=document.getElementById('bkbt');bb.style.background=c.color;bb.style.boxShadow=`0 6px 20px ${c.color}55`;
+  document.getElementById('rfpo').style.background=c.color;
+  document.getElementById('rform').style.display='none';
+  document.getElementById('rfta').value='';S.rev=0;
+  const rs=document.getElementById('rfst');rs.innerHTML='';
+  for(let i=1;i<=5;i++){const b=document.createElement('button');b.className='rfstar';b.textContent='⭐';b.onclick=()=>{S.rev=i;rs.querySelectorAll('.rfstar').forEach((s,j)=>s.classList.toggle('on',j<i))};rs.appendChild(b)}
+}
+function togFav(){S.fav=!S.fav;const b=document.getElementById('dfvbtn');b.textContent=S.fav?'♥':'♡';b.style.color=S.fav?'#E74C3C':'var(--t1)';notify(S.fav?'Saved to favorites ❤️':'Removed from favorites')}
+function togRevForm(){const f=document.getElementById('rform');f.style.display=f.style.display==='block'?'none':'block'}
+function subRev(){if(!S.rev){notify('Please select a star rating ⭐');return}document.getElementById('rform').style.display='none';document.getElementById('rfta').value='';S.rev=0;notify('Review posted — thanks! 🙌')}
+
+/* BOOKING */
+function rdBooking(){
+  const c=S.cafe;
+  document.getElementById('bkn').textContent=c.name;
+  document.querySelectorAll('.bkbar').forEach((b,i)=>{b.classList.toggle('on',i<S.step);b.style.background=i<S.step?c.color:''});
+  ['bks1','bks2','bks3'].forEach((id,i)=>document.getElementById(id).classList.toggle('on',i+1===S.step));
+  const btn=document.getElementById('bkcb');btn.style.background=c.color;btn.style.boxShadow=`0 6px 20px ${c.color}55`;btn.textContent=S.step<3?'Continue →':'Confirm Reservation';
+  if(S.step===1){
+    const dr=document.getElementById('drow');dr.innerHTML='';
+    const now=new Date();
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach((d,i)=>{
+      const dt=new Date(now);dt.setDate(now.getDate()+i);
+      const b=document.createElement('button');b.className='dbt'+(S.date===i?' on':'');
+      if(S.date===i){b.style.background=c.color+'33';b.style.borderColor=c.color}
+      b.innerHTML=`<div class="ddy">${d}</div><div class="dnum">${dt.getDate()}</div>`;
+      b.onclick=()=>{S.date=i;rdBooking()};dr.appendChild(b);
+    });
+    const tg=document.getElementById('tgrd');tg.innerHTML='';
+    TIMES.forEach(t=>{
+      const off=UNAVAIL.includes(t),sel=S.time===t;
+      const b=document.createElement('button');b.className='tsl'+(off?' off':sel?' on':'');b.textContent=t;
+      if(sel){b.style.background=c.color;b.style.borderColor=c.color}
+      if(!off)b.onclick=()=>{S.time=t;rdBooking()};
+      tg.appendChild(b);
+    });
+  }
+  if(S.step===2){
+    document.getElementById('pxn').textContent=S.pax;
+    document.getElementById('pxl').textContent=S.pax===1?'person':'persons';
+    document.getElementById('pxnt').textContent=`Max ${c.avail} seats available`;
+    document.querySelector('.nbtn.plus').style.background=c.color;
+  }
+  if(S.step===3){
+    const now=new Date();const d=new Date(now);d.setDate(now.getDate()+(S.date||0));
+    document.getElementById('sv').textContent=c.name;
+    document.getElementById('sd').textContent=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    document.getElementById('st').textContent=S.time||'—';
+    document.getElementById('sp').textContent=`${S.pax} person${S.pax>1?'s':''}`;
+    document.getElementById('sa').textContent=c.area;
+    document.getElementById('stot').textContent=c.price;
+    document.getElementById('stot').style.color=c.color;
+    document.querySelector('.smbox').style.borderLeftColor=c.color;
+  }
+}
+function chPx(d){S.pax=Math.max(1,Math.min(S.cafe.avail,S.pax+d));rdBooking()}
+function nxStep(){
+  if(S.step===1){if(S.date===null){notify('Please pick a date 📅');return}if(!S.time){notify('Please pick a time slot ⏰');return}}
+  if(S.step<3){S.step++;rdBooking()}else goTo('confirmation');
+}
+
+/* CONFIRMATION */
+function rdConf(){
+  const c=S.cafe;
+  const ico=document.getElementById('cico');ico.style.background=c.color;ico.style.boxShadow=`0 0 32px ${c.color}55`;
+  document.getElementById('ccf').textContent=c.name;document.getElementById('ccf').style.color=c.color;
+  document.getElementById('ctm').textContent='⏰ '+(S.time||'10:00');
+  document.getElementById('cad').textContent='📍 '+c.area.split(',')[0];
+  document.getElementById('cst').textContent=Math.floor(Math.random()*12)+1;
+  document.getElementById('chm').style.background=c.color;document.getElementById('chm').style.boxShadow=`0 6px 20px ${c.color}55`;
+  const qr=document.getElementById('qr');qr.innerHTML='';
+  [1,1,1,0,0,1,1,1,0,0,1,1,0,0,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,0,0,1,1,1,0,1,1,0,1,0,1,0,0,1,1,1,0,1,0].forEach(v=>{const p=document.createElement('div');p.className='qrpx';p.style.background=v?'#111':'#fff';qr.appendChild(p)});
+}
+
+/* PROFILE */
+function rdProfile(){
+  const l=document.getElementById('vislist');l.innerHTML='';
+  VISITED.forEach(v=>{
+    const c=CAFES.find(x=>x.id===v.id);
+    const card=document.createElement('div');card.className='visc';
+    card.innerHTML=`<div class="visim" style="background:${c.color}33">${c.img}</div><div><div class="visnm">${c.name}</div><div class="visdt">Last visit: ${v.date}</div></div><button class="visfv" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡';notify(this.textContent==='♥'?'Saved to favorites ❤️':'Removed')">♡</button>`;
+    card.onclick=()=>{S.cafe=c;S.prev='profile';goTo('detail')};
+    l.appendChild(card);
+  });
+}
+
+/* ── RESERVATIONS DATA ── */
+const RESERVATIONS = {
+  upcoming: [
+    {id:'R001', cafeId:1, date:'Wed, 15 Jan', time:'10:00', pax:1, price:'€3', seat:7, section:'A'},
+    {id:'R002', cafeId:2, date:'Fri, 17 Jan', time:'14:00', pax:2, price:'€10', seat:12, section:'B'},
+  ],
+  past: [
+    {id:'R003', cafeId:3, date:'Mon, 6 Jan', time:'09:00', pax:1, price:'€2', seat:3, section:'A'},
+    {id:'R004', cafeId:1, date:'Thu, 2 Jan', time:'11:00', pax:1, price:'€3', seat:9, section:'C'},
+    {id:'R005', cafeId:4, date:'Sat, 28 Dec', time:'15:00', pax:3, price:'€18', seat:22, section:'B'},
+  ],
+  cancelled: [
+    {id:'R006', cafeId:2, date:'Tue, 10 Dec', time:'13:00', pax:1, price:'€5', seat:5, section:'A'},
+  ]
+};
+let S_rsvTab = 0;
+
+function switchRsvTab(i){
+  S_rsvTab = i;
+  document.querySelectorAll('.rsvtab').forEach((b,j)=>b.classList.toggle('on',j===i));
+  renderRsv();
+}
+
+function rdReservations(){
+  S_rsvTab = 0;
+  document.querySelectorAll('.rsvtab').forEach((b,j)=>b.classList.toggle('on',j===0));
+  renderRsv();
+}
+
+function renderRsv(){
+  const keys = ['upcoming','past','cancelled'];
+  const key = keys[S_rsvTab];
+  const list = RESERVATIONS[key];
+  const container = document.getElementById('rsvbdy');
+  container.innerHTML = '';
+
+  if(!list || list.length === 0){
+    container.innerHTML = `<div class="rsv-empty"><div class="rsv-empty-icon">${S_rsvTab===2?'🚫':'📭'}</div><div class="rsv-empty-title">${S_rsvTab===2?'No cancelled bookings':'No bookings yet'}</div><p>${S_rsvTab===0?'Your upcoming reservations will appear here.':S_rsvTab===1?'Your past visits will appear here.':'No cancelled bookings.'}</p></div>`;
+    return;
+  }
+
+  list.forEach(r => {
+    const c = CAFES.find(x=>x.id===r.cafeId);
+    const card = document.createElement('div');
+    card.className = 'rsvcard';
+    const badgeClass = key==='upcoming'?'upcoming':key==='past'?'past':'cancelled';
+    const badgeText = key==='upcoming'?'Upcoming':key==='past'?'Completed':'Cancelled';
+
+    let actions = '';
+    if(key==='upcoming'){
+      actions = `
+        <button class="rsvcard-action" onclick="viewRsv('${r.id}')">🔍 View</button>
+        <button class="rsvcard-action" onclick="S.cafe=CAFES.find(x=>x.id===${r.cafeId});S.prev='reservations';goTo('map');notify('Showing directions to '+CAFES.find(x=>x.id===${r.cafeId}).name+' 🗺️')">🧭 Directions</button>
+        <button class="rsvcard-action red" onclick="cancelRsv('${r.id}')">✕ Cancel</button>`;
+    } else if(key==='past'){
+      actions = `
+        <button class="rsvcard-action" onclick="S.cafe=CAFES.find(x=>x.id===${r.cafeId});S.prev='reservations';goTo('detail')">📋 Details</button>
+        <button class="rsvcard-action" onclick="S.cafe=CAFES.find(x=>x.id===${r.cafeId});S.prev='reservations';goTo('detail');setTimeout(()=>togRevForm(),400)">⭐ Review</button>
+        <button class="rsvcard-action" onclick="S.cafe=CAFES.find(x=>x.id===${r.cafeId});S.prev='reservations';goTo('booking')">🔄 Book Again</button>`;
+    } else {
+      actions = `
+        <button class="rsvcard-action" onclick="S.cafe=CAFES.find(x=>x.id===${r.cafeId});S.prev='reservations';goTo('booking')">🔄 Book Again</button>
+        <button class="rsvcard-action" onclick="notify('Booking ref: ${r.id} 🔗')">🔗 Share Ref</button>`;
+    }
+
+    card.innerHTML = `
+      <div class="rsvcard-top">
+        <div class="rsvcard-img" style="background:${c.color}33">${c.img}</div>
+        <div>
+          <div class="rsvcard-name">${c.name}</div>
+          <div class="rsvcard-area">📍 ${c.area.split(',')[0]}</div>
+        </div>
+        <div class="rsvcard-badge ${badgeClass}">${badgeText}</div>
+      </div>
+      <div class="rsvcard-info">
+        <div class="rsv-inf"><span class="rsv-inf-lbl">Date</span><span class="rsv-inf-val">${r.date}</span></div>
+        <div class="rsv-inf"><span class="rsv-inf-lbl">Time</span><span class="rsv-inf-val">${r.time}</span></div>
+        <div class="rsv-inf"><span class="rsv-inf-lbl">Persons</span><span class="rsv-inf-val">${r.pax} person${r.pax>1?'s':''}</span></div>
+        <div class="rsv-inf"><span class="rsv-inf-lbl">Total</span><span class="rsv-inf-val" style="color:${c.color}">${r.price}</span></div>
+        <div class="rsv-inf"><span class="rsv-inf-lbl">Seat</span><span class="rsv-inf-val">Sec. ${r.section} · #${r.seat}</span></div>
+      </div>
+      <div class="rsvcard-actions">${actions}</div>`;
+
+    container.appendChild(card);
+  });
+}
+
+function viewRsv(id){
+  notify('Booking ref: '+id+' ✓');
+}
+function cancelRsv(id){
+  // Move from upcoming to cancelled
+  const idx = RESERVATIONS.upcoming.findIndex(r=>r.id===id);
+  if(idx>-1){
+    const r = RESERVATIONS.upcoming.splice(idx,1)[0];
+    RESERVATIONS.cancelled.unshift(r);
+    notify('Reservation cancelled ✕');
+    renderRsv();
+  }
+}
+
+</script>
+</body>
+</html>

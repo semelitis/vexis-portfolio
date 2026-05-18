@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBI4AI — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #05060a;
+    --surface: #0a0d14;
+    --border: rgba(0,255,200,0.08);
+    --cyan: #00ffc8;
+    --magenta: #ff3af2;
+    --text: #d4dce8;
+    --muted: #5a6478;
+    --accent-red: #ff2d4a;
+    --glow: 0 0 40px rgba(0,255,200,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5,6,10,0.85);
+    backdrop-filter: blur(16px);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .tag.live {
+    color: var(--cyan);
+    border-color: rgba(0,255,200,0.3);
+  }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px 80px 64px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,255,200,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--cyan);
+    opacity: 0.5;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  h1 .sub {
+    display: block;
+    color: var(--cyan);
+    font-size: 0.55em;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  .hero-desc {
+    margin-top: 32px;
+    max-width: 420px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 56px;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+
+  .meta-item {
+    background: var(--bg);
+    padding: 20px 24px;
+  }
+
+  .meta-item .label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .meta-item .value {
+    font-size: 13px;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  /* ── VIDEO PANEL ─────────────────────────────────── */
+  .hero-right {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phone-frame {
+    position: relative;
+    z-index: 2;
+    width: 280px;
+    transform: perspective(1000px) rotateY(-6deg) rotateX(2deg);
+    transition: transform 0.6s ease;
+    filter: drop-shadow(0 40px 80px rgba(0,0,0,0.8)) drop-shadow(0 0 60px rgba(0,255,200,0.08));
+  }
+
+  .phone-frame:hover {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+  }
+
+  .phone-shell {
+    background: #111;
+    border-radius: 36px;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.04),
+      0 0 0 8px rgba(0,0,0,0.5),
+      0 0 0 9px rgba(255,255,255,0.04);
+    position: relative;
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 24px;
+    background: #000;
+    border-radius: 0 0 12px 12px;
+    z-index: 10;
+  }
+
+  .phone-video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 34px;
+  }
+
+  /* Ambient glow behind phone */
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; height: 500px;
+    background: radial-gradient(ellipse, rgba(0,255,200,0.06) 0%, rgba(255,58,242,0.03) 50%, transparent 80%);
+    pointer-events: none;
+  }
+
+  /* Grid lines bg */
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,200,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,200,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* ── SCROLL INDICATOR ─────────────────────────────── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 64px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    animation: fadeUpDown 2s ease-in-out infinite;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--cyan), transparent);
+    animation: extend 2s ease-in-out infinite;
+  }
+
+  @keyframes fadeUpDown {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(4px); }
+  }
+
+  /* ── SECTIONS ─────────────────────────────────────── */
+  section {
+    padding: 120px 64px;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 64px;
+  }
+
+  .section-num {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--cyan);
+    font-family: 'DM Mono', monospace;
+    opacity: 0.6;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  /* ── OVERVIEW ─────────────────────────────────────── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .overview-text p {
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+
+  .overview-text p strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .problem-statement {
+    border-left: 2px solid var(--cyan);
+    padding-left: 24px;
+    margin: 32px 0;
+    font-style: italic;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .overview-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .stat-row {
+    background: var(--bg);
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .stat-row:hover { background: var(--surface); }
+
+  .stat-row::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--cyan);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .stat-row:hover::before { opacity: 1; }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .stat-num span {
+    color: var(--cyan);
+    font-size: 0.6em;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── SCREENS ──────────────────────────────────────── */
+  .screens-section { background: var(--surface); }
+
+  .screens-intro {
+    max-width: 600px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 64px;
+    font-style: italic;
+  }
+
+  .screens-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .screen-card {
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.4s ease, border-color 0.3s, box-shadow 0.4s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .screen-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(0,255,200,0.25);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,255,200,0.06);
+  }
+
+  .screen-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .screen-card-label {
+    padding: 14px 16px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .screen-card-label::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  /* ── PROCESS ──────────────────────────────────────── */
+  .process-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .process-item {
+    background: var(--bg);
+    padding: 48px 40px;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .process-item:hover { background: var(--surface); }
+
+  .process-index {
+    font-family: 'Syne', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    color: rgba(0,255,200,0.06);
+    line-height: 1;
+    margin-bottom: 24px;
+    letter-spacing: -0.04em;
+  }
+
+  .process-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .process-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  /* ── FIGMA LINK ──────────────────────────────────── */
+  .figma-section {
+    text-align: center;
+    padding: 100px 64px;
+  }
+
+  .figma-cta-wrap {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .figma-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .figma-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 48px;
+    background: transparent;
+    border: 1px solid rgba(0,255,200,0.4);
+    color: var(--cyan);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .figma-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cyan);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+  }
+
+  .figma-btn:hover::before { transform: translateX(0); }
+  .figma-btn:hover { color: #000; border-color: var(--cyan); }
+
+  .figma-btn span { position: relative; z-index: 1; }
+
+  .figma-btn svg {
+    position: relative;
+    z-index: 1;
+    width: 20px; height: 20px;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-right {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── SCAN LINES ANIMATION ─────────────────────────── */
+  .scanline {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(0,255,200,0.15), transparent);
+    animation: scan 6s linear infinite;
+    pointer-events: none;
+    z-index: 99;
+  }
+
+  @keyframes scan {
+    0% { top: -2px; }
+    100% { top: 100vh; }
+  }
+
+  /* ── REVEAL ANIMATIONS ────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────── */
+  @media (max-width: 900px) {
+    header { padding: 16px 24px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 60px 24px 48px; border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-right { min-height: 50vh; }
+    section { padding: 80px 24px; }
+    .overview-grid { grid-template-columns: 1fr; gap: 48px; }
+    .screens-gallery { grid-template-columns: 1fr 1fr; }
+    .process-list { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">CBI<span style="color:#fff">4</span>AI</div>
+  <div class="header-meta">
+    <span class="tag">UX / Design System</span>
+    <span class="tag">Mobile</span>
+    <span class="tag live">▸ Prototype</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Case Study — 2025</div>
+    <h1>
+      Critical
+      <br>Infrastructure
+      <span class="sub">AI Failure Prediction Interface</span>
+    </h1>
+    <p class="hero-desc">
+      A mobile-first AI companion for predicting and visualising
+      infrastructure failure zones in real time — built for field operators
+      working at the edge of complex urban systems.
+    </p>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="label">Role</div>
+        <div class="value">UX / Product Design</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Tool</div>
+        <div class="value">Figma</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Platform</div>
+        <div class="value">iOS Mobile</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Status</div>
+        <div class="value" style="color:var(--cyan)">Prototype</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="phone-frame">
+      <div class="phone-shell">
+        <div class="phone-notch"></div>
+        <!-- Replace the src below with your actual video path once hosted -->
+        <video
+          class="phone-video"
+          src="prototype_clean.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+        ></video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section>
+  <div class="section-header reveal">
+    <span class="section-num">01 /</span>
+    <h2>The Brief</h2>
+  </div>
+
+  <div class="overview-grid">
+    <div class="overview-text reveal">
+      <p>
+        <strong>Critical infrastructure systems — power grids, water networks, transport — 
+        fail silently.</strong> Operators rely on fragmented dashboards, 
+        delayed alerts, and manual inspections that can't scale to a modern city.
+      </p>
+
+      <div class="problem-statement">
+        "How do you give a field operator AI-grade situational awareness 
+        in the palm of their hand — without overwhelming them?"
+      </div>
+
+      <p>
+        CBI4AI is a mobile interface concept that brings together 3D city-scale 
+        visualisation, real-time AI predictions, and a voice-first interaction model. 
+        The design challenge: make the complex feel immediate, and the dangerous feel clear.
+      </p>
+      <p>
+        The prototype explores three core modes — <strong>Map</strong>, 
+        <strong>Predict</strong>, and <strong>Failure Zones</strong> — 
+        moving between a bird's-eye network view and a granular street-level analysis.
+      </p>
+    </div>
+
+    <div class="overview-stats reveal">
+      <div class="stat-row">
+        <div class="stat-num">3<span> modes</span></div>
+        <div class="stat-label">Map · Predict · Failure Zones</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">1<span> tap</span></div>
+        <div class="stat-label">to activate AI prediction layer</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">3D<span> +2D</span></div>
+        <div class="stat-label">Dual city visualisation modes</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-num">Voice<span> first</span></div>
+        <div class="stat-label">Primary interaction model</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section class="screens-section">
+  <div class="section-header reveal">
+    <span class="section-num">02 /</span>
+    <h2>Key Screens</h2>
+  </div>
+
+  <p class="screens-intro reveal">
+    Four distinct views compose the full user journey — from network overview 
+    to hyper-local failure zone identification.
+  </p>
+
+  <div class="screens-gallery">
+    <div class="screen-card reveal">
+      <img id="img1" src="" alt="Map Overview" style="min-height:200px;background:#0a0d14;">
+      <div class="screen-card-label">Map Overview</div>
+    </div>
+    <div class="screen-card reveal">
+      <img id="img2" src="" alt="3D City Mode" style="min-height:200px;background:#0a0d14;">
+      <div class="screen-card-label">3D City Mode</div>
+    </div>
+    <div class="screen-card reveal">
+      <img id="img3" src="" alt="Failure Zones" style="min-height:200px;background:#0a0d14;">
+      <div class="screen-card-label">Failure Zones</div>
+    </div>
+    <div class="screen-card reveal">
+      <img id="img4" src="" alt="Prediction Alert" style="min-height:200px;background:#0a0d14;">
+      <div class="screen-card-label">Prediction Alert</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="section-header reveal">
+    <span class="section-num">03 /</span>
+    <h2>Design Decisions</h2>
+  </div>
+
+  <div class="process-list">
+    <div class="process-item reveal">
+      <div class="process-index">01</div>
+      <div class="process-title">3D as a data layer</div>
+      <div class="process-desc">
+        The city isn't decoration — it's the data. 
+        Switching between 2D overhead and 3D isometric 
+        gives operators two mental models: network topology 
+        and physical reality. Both are necessary.
+      </div>
+    </div>
+    <div class="process-item reveal">
+      <div class="process-index">02</div>
+      <div class="process-title">Neon on black = signal, not style</div>
+      <div class="process-desc">
+        High-contrast neon on near-black reduces 
+        cognitive load in field conditions (bright sunlight, 
+        night shifts). Cyan for navigation, magenta for 
+        active states, red for critical alerts — 
+        each hue carries semantic meaning.
+      </div>
+    </div>
+    <div class="process-item reveal">
+      <div class="process-index">03</div>
+      <div class="process-title">Voice as the primary modality</div>
+      <div class="process-desc">
+        When operators are wearing gloves or managing 
+        physical systems, touch is unreliable. The microphone 
+        button anchors every screen — the interface 
+        is designed to be operated without looking.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIGMA CTA -->
+<section class="figma-section">
+  <div class="figma-cta-wrap reveal">
+    <div class="figma-eyebrow">Explore the full prototype</div>
+    <a
+      href="https://www.figma.com/design/6VFUoFZ2vVUXIS9QJKZ2Gr/CBI4AI--Copy-?node-id=5-6743&t=gU2OcLqsfsmd5Vgq-0"
+      class="figma-btn"
+      target="_blank"
+      rel="noopener"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/>
+        <path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/>
+        <path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+        <path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 0 1-7 0z"/>
+        <path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/>
+      </svg>
+      <span>Open in Figma</span>
+    </a>
+    <p style="font-size:11px; color: var(--muted); font-style:italic; letter-spacing:0.1em;">
+      Full interactive prototype — all flows navigable
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">CBI4AI — AI Infrastructure Prediction Interface</div>
+  <div class="footer-right">UX Design · Figma Prototype · 2025</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Trigger hero elements immediately
+  document.querySelectorAll('.hero .reveal').forEach(el => {
+    setTimeout(() => el.classList.add('visible'), 200);
+  });
+
+  // Extract frames from video for screen cards
+  const video = document.querySelector('.phone-video');
+  const timestamps = [2, 28, 75, 118];
+  const imgIds = ['img1', 'img2', 'img3', 'img4'];
+
+  function captureFrame(video, time) {
+    return new Promise(resolve => {
+      const canvas = document.createElement('canvas');
+      const v = document.createElement('video');
+      v.src = video.src;
+      v.muted = true;
+      v.crossOrigin = 'anonymous';
+      v.addEventListener('seeked', () => {
+        canvas.width = v.videoWidth;
+        canvas.height = v.videoHeight;
+        canvas.getContext('2d').drawImage(v, 0, 0);
+        resolve(canvas.toDataURL('image/jpeg', 0.85));
+        v.remove();
+      }, { once: true });
+      v.addEventListener('loadedmetadata', () => { v.currentTime = time; });
+      v.load();
+    });
+  }
+
+  video.addEventListener('loadedmetadata', async () => {
+    for (let i = 0; i < timestamps.length; i++) {
+      try {
+        const src = await captureFrame(video, timestamps[i]);
+        document.getElementById(imgIds[i]).src = src;
+        document.getElementById(imgIds[i]).style.minHeight = 'auto';
+      } catch(e) {}
+    }
+  });
+</script>
+</body>
+</html>
